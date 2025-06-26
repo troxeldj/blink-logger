@@ -1,6 +1,6 @@
 # blink-logger 📝
 
-A custom Python logging library built from scratch with modern features and clean architecture.
+A pure object-oriented Python logging library I built from scratch because I was bored.
 
 ## Features
 
@@ -15,6 +15,8 @@ A custom Python logging library built from scratch with modern features and clea
 ## Architecture
 
 ![Class Diagram](assets/class-diagram.png)
+
+Created using https://gleek.io/
 
 The library follows a modular architecture with clear separation between:
 - **Core**: Logger, LogRecord, LoggingLevel, Colors
@@ -278,12 +280,20 @@ logging-lib/
 
 ## Status
 
-**Current Status**: ✅ **Stable**
+🚧 **Work in Progress** 🚧
+
+This is a hobby project I'm tinkering with. Don't use it in production unless you enjoy living dangerously.
 
 - All 211 tests passing
-- No circular import issues
+- No circular import issues  
 - Comprehensive feature coverage
-- Ready for use in development projects
+- Fun learning experiment with OOP design patterns
+
+## TODO
+
+- An OOP event system
+- A simple decorator wrapper
+- more to come...
 
 ## Credits
 
