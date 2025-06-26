@@ -1,0 +1,6 @@
+
+[dev]
+pytest
+
+[test]
+pytest>=6.0

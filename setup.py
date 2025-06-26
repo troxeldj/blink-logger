@@ -15,7 +15,7 @@ setup(
     description="A custom Python logging library built from scratch",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dillon/blink-logger",
+    url="https://github.com/troxeldj/blink-logger",
     packages=find_packages(exclude=["tests", "tests.*", "examples", "examples.*"]),
     classifiers=[
         "Development Status :: 3 - Alpha",
