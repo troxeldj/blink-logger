@@ -1,13 +1,9 @@
 {
     "name": "SampleLogger",
     "level": "DEBUG",
-    "formatter": {
-        "type": "SimpleFormatter"
-    },
     "appenders": [
         {
             "type": "ConsoleAppender",
-            "level": "INFO",
             "formatter": {
                 "type": "SimpleFormatter"
             }

@@ -9,8 +9,6 @@ from dataclasses import dataclass
 from core.level import LoggingLevel
 from typing import List
 from appenders.base_appender import BaseAppender
-from formatters.base_formatter import BaseFormatter
-from formatters import all_formatter_strings
 from appenders import all_appender_strings
 
 @dataclass
@@ -21,26 +19,8 @@ class LoggerConfig:
 		name: str  
 		level: LoggingLevel
 		appenders: List[BaseAppender]
-		formatter: BaseFormatter
 
 
-		@classmethod
-		def _parse_formatter(cls, formatter_data: dict[str, str]):
-			all_formatters = all_formatter_strings 
-			if(formatter_data is None or not isinstance(formatter_data, dict)):
-				raise ValueError("Formatter data must be a dictionary.")
-			if 'type' not in formatter_data:
-				raise ValueError("Formatter data must contain a 'type' key.")
-			formatter_type = formatter_data.get('type', 'SimpleFormatter')
-			if formatter_type not in all_formatters:
-				raise ValueError(f"Formatter type '{formatter_type}' is not recognized.")
-			# Create an instance of the formatter using the from_dict method
-			formatter_class = all_formatters[formatter_type]
-			formatter_instance = formatter_class.from_dict(formatter_data)
-			if not isinstance(formatter_instance, BaseFormatter):
-				raise TypeError(f"Formatter instance must be of type BaseFormatter, got {type(formatter_instance)}")
-			return formatter_instance
-		
 		@classmethod
 		def _parse_appenders(cls, appenders_data: List[dict]) -> List[BaseAppender]:
 				"""
@@ -95,7 +75,6 @@ class LoggerConfig:
 				return cls(
 						name=data['name'],
 						level=LoggingLevel[data['level'].upper()],
-						formatter=cls._parse_formatter(data['formatter']),
 						appenders=cls._parse_appenders(data.get('appenders'))
 				)
 
@@ -105,6 +84,6 @@ if __name__ == "__main__":
 	# Example usage
 	config_name: str = "simple_config.json"
 	base_dir: str = os.path.dirname(os.path.abspath(__file__))
-	json_path: str = os.path.join(base_dir, "config", 'logger_config.json')
+	json_path: str = os.path.join(base_dir, "test_configs", config_name)
 	config = LoggerConfig.from_json(json_path)
 	print(config)

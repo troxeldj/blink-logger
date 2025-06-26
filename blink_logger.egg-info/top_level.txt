@@ -1,6 +1,8 @@
 appenders
 builders
+config
 core
+events
 factories
 filters
 formatters

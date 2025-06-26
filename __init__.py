@@ -101,8 +101,7 @@ def create_simple_logger(name: str, level: LoggingLevel = LoggingLevel.INFO) -> 
     return (LoggerBuilder()
             .set_name(name)
             .set_level(level)
-            .set_formatter(SimpleFormatter())
-            .add_appender(ConsoleAppender())
+            .add_appender(ConsoleAppender(formatter=SimpleFormatter()))
             .build())
 
 
@@ -123,6 +122,5 @@ def create_colored_logger(name: str,
     return (LoggerBuilder()
             .set_name(name)
             .set_level(level)
-            .set_formatter(SimpleFormatter())
-            .add_appender(ColoredConsoleAppender(color=color))
+            .add_appender(ColoredConsoleAppender(formatter=SimpleFormatter(), color=color))
             .build())

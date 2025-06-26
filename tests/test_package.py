@@ -3,6 +3,12 @@
 Test script for blink-logger functionality
 """
 
+import sys
+import os
+
+# Add the parent directory to the path to allow imports from the main library
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # Test complete package functionality
 from builders.logger_builder import LoggerBuilder
 from appenders.console_appender import ConsoleAppender, ColoredConsoleAppender  
@@ -22,8 +28,7 @@ print('✅ All major components imported successfully!')
 logger = (LoggerBuilder()
     .set_name('demo-logger')
     .set_level(LoggingLevel.INFO)
-    .set_formatter(SimpleFormatter())
-    .add_appender(ColoredConsoleAppender(color=ConsoleColor.GREEN))
+    .add_appender(ColoredConsoleAppender(SimpleFormatter(), color=ConsoleColor.GREEN))
     .build())
 
 print('✅ Logger builder pattern works!')

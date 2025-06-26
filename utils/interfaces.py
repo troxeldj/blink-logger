@@ -1,8 +1,8 @@
 # create an interface to create structure from json
-from abc import ABC, abstractmethod 
+from abc import abstractmethod 
 from typing import Dict, Any
 
-class JsonSerializable(ABC):
+class JsonSerializable:
     """
     An interface for classes that can be serialized from a JSON structure.
     """
