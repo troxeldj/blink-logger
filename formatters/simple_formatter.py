@@ -18,3 +18,28 @@ class SimpleFormatter(BaseFormatter):
 		
 		def __repr__(self):
 				return f"<SimpleFormatter: {self.__class__.__name__}>"
+		
+		@classmethod
+		def from_dict(cls, data: dict) -> 'SimpleFormatter':
+				"""Creates an instance of SimpleFormatter from a dictionary representation.
+
+				Args:
+					data (dict): The dictionary representation of the formatter.
+
+				Returns:
+					SimpleFormatter: An instance of SimpleFormatter.
+				"""
+				if not isinstance(data, dict):
+					raise ValueError("Data must be a dictionary.")
+				return cls()
+		
+		@classmethod
+		def to_dict(cls) -> dict:
+				"""Converts the instance to a dictionary representation.
+
+				Returns:
+					dict: The dictionary representation of the formatter.
+				"""
+				return {
+					"type": "SimpleFormatter"
+				}

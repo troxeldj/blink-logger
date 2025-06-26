@@ -47,3 +47,26 @@ class FileAppender(BaseAppender):
 										return
 						self.file.write(formatted_record + '\n')
 						self.flush()
+	
+		@classmethod
+		@override
+		def from_dict(cls, data: dict) -> 'FileAppender':
+			"""Create a FileAppender instance from a dictionary."""
+			file_path = data.get('file_path')
+			if not file_path:
+				raise ValueError("FileAppender requires 'file_path' in configuration.")
+			formatter_data = data.get('formatter', {})
+			formatter = BaseFormatter.from_dict(formatter_data)
+			filters_data = data.get('filters', [])
+			filters = [BaseFilter.from_dict(f) for f in filters_data]
+			return cls(file_path, formatter, filters)
+		
+		@override
+		def to_dict(self) -> dict:
+				"""Convert the instance to a dictionary representation."""
+				return {
+						"type": "FileAppender",
+						"file_path": self.file_path,
+						"formatter": self.formatter.to_dict(),
+						"filters": [f.to_dict() for f in self.filters]
+				}

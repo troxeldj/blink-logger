@@ -1,13 +1,14 @@
 from formatters.base_formatter import BaseFormatter
 from formatters.simple_formatter import SimpleFormatter
 from core.record import LogRecord
-from typing import Union, Optional, List, TYPE_CHECKING
+from typing import Union, Optional, List, TYPE_CHECKING, override
 from utils.dec import throws
+from utils.interfaces import JsonSerializable
 
 if TYPE_CHECKING:
     from filters.base_filter import BaseFilter
 
-class BaseAppender:
+class BaseAppender(JsonSerializable):
 		"""Base class for all appenders"""
 		def __init__(self, formatter: Union[BaseFormatter, None] = None, filters: Optional[List["BaseFilter"]] = None):
 			"""
@@ -62,3 +63,28 @@ class BaseAppender:
 			It can be used to write the log record to the destination.
 			"""
 			raise NotImplementedError("Subclasses must implement this method.")
+		
+
+		@override
+		@classmethod
+		def from_dict(cls, data: dict) -> 'BaseFormatter':
+			"""
+			Create an instance of BaseFormatter from a dictionary representation.
+			
+			Args:
+				data (dict): The dictionary representation of the formatter.
+			
+			Returns:
+				BaseFormatter: An instance of BaseFormatter.
+			"""
+			raise NotImplementedError("Subclasses must implement this method")
+		
+		@override
+		def to_dict(self) -> dict:
+			"""
+			Convert the instance to a dictionary representation.
+			
+			Returns:
+				dict: The dictionary representation of the formatter.
+			"""
+			raise NotImplementedError("Subclasses must implement this method")

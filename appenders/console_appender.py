@@ -5,6 +5,8 @@ from formatters.base_formatter import BaseFormatter
 from core.color import ConsoleColor
 from typing import Union, Optional, List, TYPE_CHECKING
 from typing import override
+from utils.interfaces import JsonSerializable
+from formatters import all_formatter_strings
 import sys
 
 if TYPE_CHECKING:
@@ -28,6 +30,24 @@ class ConsoleAppender(BaseAppender):
 				return
 		sys.stdout.write(formatted_record + '\n')
 		self.flush()
+
+	@override
+	@classmethod
+	def from_dict(cls, data: dict) -> 'ConsoleAppender':
+		"""Create a ConsoleAppender instance from a dictionary."""
+		formatter_data = data.get('formatter', {})
+		formatter_type = formatter_data.get('type', 'SimpleFormatter')
+		if formatter_type not in all_formatter_strings:
+			raise ValueError(f"Formatter type '{formatter_type}' is not recognized.")
+		formatter_class = all_formatter_strings[formatter_type]
+		formatter_instance = formatter_class.from_dict(formatter_data)
+		if not isinstance(formatter_instance, BaseFormatter):
+			raise TypeError(f"Formatter instance must be of type BaseFormatter, got {type(formatter_instance)}")
+		filters_data = data.get('filters', [])
+		filters = [BaseFilter.from_dict(f) for f in filters_data] if filters_data else []
+		return cls(formatter=formatter_instance, filters=filters)
+
+
 
 class ColoredConsoleAppender(ConsoleAppender):
 	"""Appender that writes colored log records to the console."""

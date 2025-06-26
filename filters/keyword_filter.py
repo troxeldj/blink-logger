@@ -34,3 +34,32 @@ class KeywordFilter(BaseFilter):
 						bool: True if the record's message contains any of the keywords, False otherwise.
 				"""
 				return any(keyword in record.message for keyword in self.keywords)
+		
+	
+		@classmethod
+		def from_dict(cls, data: dict) -> 'KeywordFilter':
+				"""
+				Create a KeywordFilter instance from a dictionary.
+
+				Args:
+						data (dict): The dictionary representation of the filter.
+
+				Returns:
+						KeywordFilter: An instance of KeywordFilter.
+				"""
+				keywords = data.get('keywords', [])
+				if isinstance(keywords, str):
+					keywords = [keywords]
+				return cls(keywords)
+		
+		def to_dict(self) -> dict:
+				"""
+				Convert the KeywordFilter instance to a dictionary representation.
+
+				Returns:
+						dict: The dictionary representation of the filter.
+				"""
+				return {
+						"type": "KeywordFilter",
+						"keywords": self.keywords
+				}
