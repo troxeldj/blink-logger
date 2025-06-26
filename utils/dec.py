@@ -78,3 +78,18 @@ def metadata(**kwargs):
 				func.__metadata__ = kwargs
 				return func
 		return decorator
+
+def example(input: str, output: str):
+		"""
+		Decorator to provide an example input and output for a function.
+		This can be used for documentation or static analysis purposes.
+
+		Example usage:
+		@example(input="Hello, World!", output="Hello, World!")
+		def greet(name):
+				return f"Hello, {name}!"
+		"""
+		def decorator(func):
+				func.__example__ = {'input': input, 'output': output}
+				return func
+		return decorator
