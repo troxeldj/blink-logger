@@ -1,18 +1,18 @@
-from builders.logger_builder import LoggerBuilder
-from formatters.simple_formatter import SimpleFormatter
-from appenders.file_appender import FileAppender
+from factories.logger_factory import LoggerFactory
 from core.level import LoggingLevel
-from core.logger import Logger
-
+from managers.global_manager import GlobalManager
 
 if __name__ == "__main__":
-	myLogger: Logger = LoggerBuilder() \
-		.set_name("MyLogger") \
-		.set_level(LoggingLevel.DEBUG) \
-		.set_formatter(SimpleFormatter()) \
-		.add_appender(FileAppender("my_log.txt")) \
-		.build()
-	
-	myLogger.log(LoggingLevel.INFO, "This is an info message.")
+	LoggerFactory.create_file_logger(
+		"test_logger",
+		LoggingLevel.INFO,
+		"test.log"
+	).log(
+		None, 
+		"This is a test log message.", 
+		{"key": "value"}
+	)
 
+	print("Global Logger Instances:"  + 
+			 len(GlobalManager.get_instance()).__str__())
 		

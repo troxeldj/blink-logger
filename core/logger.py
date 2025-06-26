@@ -52,8 +52,16 @@ class Logger:
 			return BaseAppender
 
 		@throws(TypeError)
-		def log(self, level: LoggingLevel, message: str, metadata: Optional[dict] = {}):
+		def log(self, level: Optional[LoggingLevel] = None, message: str = "", metadata: Optional[dict] = {}):
 			"""Log a message at the specified logging level."""
+			if not level:
+				level = self.current_level
+			if not isinstance(level, LoggingLevel):
+				raise TypeError("level must be an instance of LoggingLevel.")
+			if not isinstance(message, str):
+				raise TypeError("message must be a string.")
+			if message == "":
+				raise ValueError("message cannot be an empty string.")
 			self._verify_log(level, message, metadata)
 			record = LogRecord(
 				level=level,
