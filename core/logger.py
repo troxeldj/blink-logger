@@ -55,20 +55,13 @@ class Logger:
 		def log(self, level: LoggingLevel, message: str, metadata: Optional[dict] = {}):
 			"""Log a message at the specified logging level."""
 			self._verify_log(level, message, metadata)
-			formatted_message = self.formatter.format(
-				LogRecord(
-					level=level,
-					message=message,
-					metadata=metadata
-				)
-			)
-			new_record = LogRecord(
+			record = LogRecord(
 				level=level,
-				message=formatted_message,
+				message=message,
 				metadata=metadata
 			)
 			for appender in self.appenders:
-				appender.append(new_record)
+				appender.append(record)
 
 		@throws(TypeError)	
 		def set_level(self, level: LoggingLevel):
