@@ -297,7 +297,7 @@ This is a hobby project I'm tinkering with. Don't use it in production unless yo
 
 ## Credits
 
-- **Development**: Built with curiosity and too much free time
+- **Development**: Built with curiosity and too much free time (Credit to Google and StackOverflow)
 - **Testing**: Comprehensive test suite developed with assistance from **Claude Sonnet 3.5** via GitHub Copilot Chat
 - **Architecture**: Inspired by modern logging frameworks with a focus on clean, modular design
 
