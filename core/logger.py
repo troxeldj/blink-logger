@@ -8,15 +8,16 @@ if TYPE_CHECKING:
 
 class Logger:
 		@throws(TypeError, ValueError)
-		def __init__(self, name: str, level: Union[LoggingLevel, None] = None, appenders: List["BaseAppender"] = []):
+		def __init__(self, name: str, level: Union[LoggingLevel, None] = None, appenders: List["BaseAppender"] = [], auto_register: bool = True):
 			"""Initialize the Logger with a name, logging level, and appenders."""
 			self.name: str = name
 			self.current_level: LoggingLevel = level if level else LoggingLevel.INFO
 			if not appenders:
 				raise ValueError("At least one appender must be provided.")
 			self.appenders: List["BaseAppender"] = appenders.copy()  # Create a copy to avoid shared references
-			from managers.global_manager import GlobalManager
-			GlobalManager.get_instance().add_logger(self)
+			if auto_register:
+				from managers.global_manager import GlobalManager
+				GlobalManager.get_instance().add_logger(self)
 
 		@throws(TypeError)
 		def _verify_log(self, level: LoggingLevel, message: str, metadata: Optional[dict] = {}):

@@ -44,8 +44,6 @@ class GlobalManager():
     @classmethod
     def get_global_logger(cls) -> "Logger":
         """Get the global logger instance."""
-        # Ensure global logger exists before returning it
-        cls._setup_global_logger()
         return cls.get_instance().get_logger("global")
 
     @override

@@ -37,6 +37,16 @@ from filters.level_filter import LevelFilter
 from managers.log_manager import LogManager
 from managers.global_manager import GlobalManager
 
+# Decorators
+from decorators import (
+    logged, timed, performance_monitor, debug_logged, error_handler
+)
+
+# Global logger access
+def get_global_logger() -> Logger:
+    """Get the global logger instance for easy access."""
+    return GlobalManager.get_global_logger()
+
 # Public API exports
 __all__ = [
     # Core
@@ -68,6 +78,16 @@ __all__ = [
     # Managers
     "LogManager",
     "GlobalManager",
+    
+    # Decorators
+    "logged",
+    "timed", 
+    "performance_monitor",
+    "debug_logged",
+    "error_handler",
+    
+    # Global access
+    "get_global_logger",
 ]
 
 # Convenience functions for quick setup

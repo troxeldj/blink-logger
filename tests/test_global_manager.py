@@ -91,7 +91,8 @@ class TestGlobalManagerSingleton:
         
         assert instance.name == "GlobalLogManager"
         assert isinstance(instance.loggers, dict)
-        assert len(instance.loggers) == 0
+        assert len(instance.loggers) == 1  # Should contain the global logger
+        assert "global" in instance.loggers  # Global logger should be present
     
     def test_singleton_persistence(self, mock_appender):
         """Test that singleton persists state between calls."""
@@ -180,7 +181,7 @@ class TestGlobalManagerAutoRegistration:
         # Create a logger - should auto-register
         logger = Logger("auto_registered", LoggingLevel.INFO, [mock_appender])
         
-        # Check it was registered
+        # Check it was registered (global logger was cleared, so only auto_registered remains)
         assert len(global_manager) == 1
         assert "auto_registered" in global_manager
         assert global_manager.get_logger("auto_registered") is logger
@@ -233,7 +234,7 @@ class TestGlobalManagerBuilderIntegration:
                  .add_appender(mock_appender)
                  .build())
         
-        # Check it was registered
+        # Check it was registered (global logger cleared, so only builder_registered remains)
         assert len(global_manager) == 1
         assert "builder_registered" in global_manager
         assert global_manager.get_logger("builder_registered") is logger
@@ -257,7 +258,7 @@ class TestGlobalManagerBuilderIntegration:
                   .add_appender(mock_appender)
                   .build())
         
-        # Both should be registered
+        # Both should be registered (global logger was cleared)
         assert len(global_manager) == 2
         assert "builder1" in global_manager
         assert "builder2" in global_manager
@@ -349,7 +350,7 @@ class TestGlobalManagerOperations:
         global_manager.remove_logger("to_remove")
         
         assert "to_remove" not in global_manager
-        assert len(global_manager) == 0
+        assert len(global_manager) == 0  # Global logger was cleared earlier
     
     def test_clear_all_loggers_from_global(self, mock_appender):
         """Test clearing all loggers from GlobalManager."""
@@ -366,7 +367,7 @@ class TestGlobalManagerOperations:
         # Clear all
         global_manager.clear_loggers()
         
-        assert len(global_manager) == 0
+        assert len(global_manager) == 0  # After clear_loggers, global logger is also removed
     
     def test_dict_like_operations_on_global(self, mock_appender):
         """Test dictionary-like operations on GlobalManager."""
@@ -428,7 +429,7 @@ class TestGlobalManagerMixedRegistration:
                          .add_appender(mock_appender)
                          .build())
         
-        # Both should be registered
+        # Both should be registered (global logger was cleared)
         assert len(global_manager) == 2
         assert "direct" in global_manager
         assert "builder" in global_manager
@@ -480,9 +481,10 @@ class TestGlobalManagerEdgeCases:
         # Manually reset singleton (simulating what reset fixture does)
         GlobalManager._instance = None
         
-        # Create new instance - should be empty
+        # Create new instance - should have global logger
         instance2 = GlobalManager()
-        assert len(instance2) == 0
+        assert len(instance2) == 1  # Should contain global logger
+        assert "global" in instance2.loggers
         assert instance1 is not instance2
     
     def test_global_manager_with_real_appenders(self):

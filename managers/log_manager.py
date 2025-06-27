@@ -26,6 +26,7 @@ class LogManager:
 				"""Add a logger to the LogManager."""
 				self._add_logger_checks(logger)
 				self.loggers[logger.name] = logger
+
 		@throws(TypeError, KeyError)
 		def get_logger(self, name: str) -> "Logger":
 				"""Retrieve a logger by its name."""

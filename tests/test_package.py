@@ -49,4 +49,28 @@ print('✅ Logging with filters works!')
 global_mgr = GlobalManager.get_instance()
 print(f'✅ Global manager contains {len(global_mgr)} loggers')
 
+# Test decorators and global logger
+print('\n=== Testing Decorators ===')
+
+from decorators import logged, timed
+
+# Test accessing global logger
+global_logger = GlobalManager.get_global_logger()
+global_logger.info('Testing global logger access!')
+
+# Test decorator on a simple function
+@logged()
+def demo_function(x, y):
+    return x + y
+
+@timed()
+def demo_timing():
+    import time
+    time.sleep(0.01)  # 10ms
+    return "timing test complete"
+
+result1 = demo_function(10, 20)
+result2 = demo_timing()
+
+print(f'✅ Decorator test results: {result1}, {result2}')
 print('🎉 All tests passed! blink-logger is ready to use!')
