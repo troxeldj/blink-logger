@@ -203,3 +203,22 @@ def error_handler(reraise: bool = False, level: LoggingLevel = LoggingLevel.ERRO
                     
         return wrapper
     return decorator
+
+def combine_decorators(*decorators: Callable) -> Callable:
+    """
+		Combine multiple decorators into one.
+		
+		Args:
+				*decorators: List of decorators to combine
+		
+		Example:
+				@combine_decorators(logged(), timed())
+				def my_function():
+						pass
+		"""
+    def combined_decorator(func: Callable) -> Callable:
+      for decorator in reversed(decorators):
+        func = decorator(func)
+      return func
+    return combined_decorator
+
