@@ -41,7 +41,7 @@ class SQLiteAppender(BaseAppender):
         return
     self._cursor.execute(
       f"INSERT INTO {self.table_name} (timestamp, level, message) VALUES (?, ?, ?)",
-      (record.timestamp, record.level.name, record.message)
+      (record.timestamp, record.level, record.message)
     )
     self._connection.commit()
 
