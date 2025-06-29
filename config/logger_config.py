@@ -50,9 +50,6 @@ class LoggerConfig:
 				# Return the list of appender instances
 				return appenders
 
-
-			
-
 		@classmethod
 		def from_json(cls, json_path: str) -> 'LoggerConfig':
 				"""
@@ -78,6 +75,14 @@ class LoggerConfig:
 						appenders=cls._parse_appenders(data.get('appenders'))
 				)
 
+		def to_logger(self):
+			from core import Logger
+			return Logger(
+				name=config.name,
+				level=config.level,
+				appenders=config.appenders
+      )
+
 
 
 if __name__ == "__main__":
@@ -85,5 +90,7 @@ if __name__ == "__main__":
 	config_name: str = "simple_config.json"
 	base_dir: str = os.path.dirname(os.path.abspath(__file__))
 	json_path: str = os.path.join(base_dir, "test_configs", config_name)
-	config = LoggerConfig.from_json(json_path)
+	config: LoggerConfig = LoggerConfig.from_json(json_path)
+	logger = config.to_logger()
+	logger.error("test msg")
 	print(config)

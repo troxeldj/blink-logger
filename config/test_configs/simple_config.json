@@ -3,10 +3,8 @@
     "level": "DEBUG",
     "appenders": [
         {
-            "type": "ConsoleAppender",
-            "formatter": {
-                "type": "SimpleFormatter"
-            }
+          "type": "SQLiteAppender",
+          "db_path": "./config/test_configs/test.db"
         }
     ]
 }
