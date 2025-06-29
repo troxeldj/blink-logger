@@ -67,15 +67,15 @@ class BaseAppender(JsonSerializable):
 
 		@override
 		@classmethod
-		def from_dict(cls, data: dict) -> 'BaseFormatter':
+		def from_dict(cls, data: dict) -> 'BaseAppender':
 			"""
-			Create an instance of BaseFormatter from a dictionary representation.
+			Create an instance of BaseAppender from a dictionary representation.
 			
 			Args:
 				data (dict): The dictionary representation of the formatter.
 			
 			Returns:
-				BaseFormatter: An instance of BaseFormatter.
+				BaseAppender: An instance of BaseAppender.
 			"""
 			raise NotImplementedError("Subclasses must implement this method")
 		

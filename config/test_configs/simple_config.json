@@ -4,7 +4,15 @@
     "appenders": [
         {
           "type": "SQLiteAppender",
-          "db_path": "./config/test_configs/test.db"
+          "db_path": "./config/test_configs/test.db",
+          "filters": [
+            {
+              "type": "keyword",
+              "keywords": [
+                "test"
+              ]
+            }
+          ]
         }
     ]
 }

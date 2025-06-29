@@ -11,6 +11,7 @@ import sys
 
 if TYPE_CHECKING:
     from filters.base_filter import BaseFilter
+    from config.str_to import StringToFilter
 
 class ConsoleAppender(BaseAppender):
 	"""Appender that writes log records to the console."""
@@ -43,8 +44,13 @@ class ConsoleAppender(BaseAppender):
 		formatter_instance = formatter_class.from_dict(formatter_data)
 		if not isinstance(formatter_instance, BaseFormatter):
 			raise TypeError(f"Formatter instance must be of type BaseFormatter, got {type(formatter_instance)}")
-		filters_data = data.get('filters', [])
-		filters = [BaseFilter.from_dict(f) for f in filters_data] if filters_data else []
+		filters_data: List[dict] = data.get('filters', [])
+		filters = []
+		for f in filters_data:
+			if 'type' not in f:
+				raise ValueError("filter must have a type")
+			filter_class = StringToFilter(f['type'])
+			filters.append(filter_class.from_dict(f))
 		return cls(formatter=formatter_instance, filters=filters)
 
 
