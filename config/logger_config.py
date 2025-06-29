@@ -1,5 +1,6 @@
 import sys
 import os
+from managers.global_manager import GlobalManager
 
 # Fix import path if run as a script
 if __name__ == "__main__":
@@ -94,3 +95,4 @@ if __name__ == "__main__":
 	logger = config.to_logger()
 	logger.error("test msg")
 	print(config)
+	print(GlobalManager.get_instance().loggers)
