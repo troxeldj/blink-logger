@@ -11,6 +11,15 @@ class SQLiteAppender(BaseAppender):
     self._cursor: sqlite3.Cursor = self._connection.cursor()
     self._init_table()
 
+  @override
+  def __del__(self):
+    self.teardown()
+
+  @override
+  def teardown(self):
+    self._cursor.close()
+    self._connection.close()
+
   def _init_table(self):
     self._cursor.execute(f"""
       CREATE TABLE IF NOT EXISTS {self.table_name} (
