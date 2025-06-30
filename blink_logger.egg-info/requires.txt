@@ -1,6 +1,7 @@
 
 [dev]
 pytest
+mysql-connector-python
 
 [test]
 pytest>=6.0

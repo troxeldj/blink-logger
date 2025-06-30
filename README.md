@@ -18,6 +18,9 @@ cd blink-logger
 # Install in development mode with all dependencies
 pip install -e .[dev]
 
+# Note: if using zsh you need quotes around the .[dev] like
+pip install -e".[dev]"
+
 # Or install requirements manually
 pip install -r requirements.txt
 
