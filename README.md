@@ -106,8 +106,8 @@ slow_process()  # Automatically timed!
 - 🚀 **Zero Config** - Works out of the box with global logger
 - ⚡ **Smart Decorators** - `@logged`, `@timed`, `@performance_monitor` and more
 - 🎨 **Beautiful Output** - Colored terminal output for better readability
-- �️ **Database Support** - MySQL and SQLite appenders for persistent logging
-- �📄 **Multiple Outputs** - Console, file, and composite appenders
+- 🗄️ **Database Support** - MySQL and SQLite appenders for persistent logging
+- 📁 **Multiple Outputs** - Console, file, and composite appenders
 - 🔧 **Builder Pattern** - Fluent, chainable logger construction when you need it
 - 🌍 **Global Management** - Centralized logger registry and management
 - 🧩 **Modular Design** - Clean separation of concerns with dependency injection
