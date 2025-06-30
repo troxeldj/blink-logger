@@ -26,19 +26,19 @@ print("✅ All major components imported successfully!")
 
 # Test builder pattern
 logger = (
-    LoggerBuilder()
-    .set_name("demo-logger")
-    .set_level(LoggingLevel.INFO)
-    .add_appender(ColoredConsoleAppender(SimpleFormatter(), color=ConsoleColor.GREEN))
-    .build()
+  LoggerBuilder()
+  .set_name("demo-logger")
+  .set_level(LoggingLevel.INFO)
+  .add_appender(ColoredConsoleAppender(SimpleFormatter(), color=ConsoleColor.GREEN))
+  .build()
 )
 
 print("✅ Logger builder pattern works!")
 
 # Test logging with filters
 filter_appender = ConsoleAppender(
-    formatter=SimpleFormatter(),
-    filters=[KeywordFilter(["important"]), LevelFilter(LoggingLevel.INFO)],
+  formatter=SimpleFormatter(),
+  filters=[KeywordFilter(["important"]), LevelFilter(LoggingLevel.INFO)],
 )
 
 logger.add_appender(filter_appender)
@@ -64,15 +64,15 @@ global_logger.info("Testing global logger access!")
 # Test decorator on a simple function
 @logged()
 def demo_function(x, y):
-    return x + y
+  return x + y
 
 
 @timed()
 def demo_timing():
-    import time
+  import time
 
-    time.sleep(0.01)  # 10ms
-    return "timing test complete"
+  time.sleep(0.01)  # 10ms
+  return "timing test complete"
 
 
 result1 = demo_function(10, 20)

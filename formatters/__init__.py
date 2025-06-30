@@ -6,8 +6,8 @@ from typing import Dict
 
 
 all_formatter_strings: Dict[str, BaseFormatter] = {
-    "SimpleFormatter": SimpleFormatter,
-    "JSONFormatter": JSONFormatter,
+  "SimpleFormatter": SimpleFormatter,
+  "JSONFormatter": JSONFormatter,
 }
 
 __all__ = ["BaseFormatter", "SimpleFormatter", "JSONFormatter", "all_formatter_strings"]

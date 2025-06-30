@@ -6,91 +6,91 @@ from utils.dec import throws
 from utils.interfaces import JsonSerializable
 
 if TYPE_CHECKING:
-    from filters.base_filter import BaseFilter
+  from filters.base_filter import BaseFilter
 
 
 class BaseAppender(JsonSerializable):
-    """Base class for all appenders"""
+  """Base class for all appenders"""
 
-    def __init__(
-        self,
-        formatter: Union[BaseFormatter, None] = None,
-        filters: Optional[List["BaseFilter"]] = None,
-    ):
-        """
-        Initialize the appender.
-        This function is called when the appender is created.
-        It can be used to set up resources, connections, or any other necessary initialization.
-        For example, if the appender writes to a file, this function can open the file.
-        """
-        self.formatter = formatter or SimpleFormatter()
-        self.filters = filters or []
-
-    def __del__(self):
-        """
-        Clean up the appender.
-        This function is called when the appender is no longer needed.
-        It can be used to clean up resources, close connections, or any other necessary teardown.
-        For example, if the appender writes to a file, this function can close the file.
-        """
-        self.teardown()
-
+  def __init__(
+    self,
+    formatter: Union[BaseFormatter, None] = None,
+    filters: Optional[List["BaseFilter"]] = None,
+  ):
     """
+    Initialize the appender.
+    This function is called when the appender is created.
+    It can be used to set up resources, connections, or any other necessary initialization.
+    For example, if the appender writes to a file, this function can open the file.
+    """
+    self.formatter = formatter or SimpleFormatter()
+    self.filters = filters or []
+
+  def __del__(self):
+    """
+    Clean up the appender.
+    This function is called when the appender is no longer needed.
+    It can be used to clean up resources, close connections, or any other necessary teardown.
+    For example, if the appender writes to a file, this function can close the file.
+    """
+    self.teardown()
+
+  """
 		Function to run when the appender is initialized.
 		This function is called when the appender is created.
 		It can be used to set up resources, connections, or any other necessary initialization.
 		For example, if the appender writes to a file, this function can open the
 		"""
 
-    def initialize(self):
-        pass
+  def initialize(self):
+    pass
 
-    def teardown(self):
-        """
-        Function to run when the appender is destroyed.
-        This function is called when the appender is no longer needed.
-        It can be used to clean up resources, close connections, or any other necessary teardown.
-        For example, if the appender writes to a file, this function can close the file.
-        """
-        pass
+  def teardown(self):
+    """
+    Function to run when the appender is destroyed.
+    This function is called when the appender is no longer needed.
+    It can be used to clean up resources, close connections, or any other necessary teardown.
+    For example, if the appender writes to a file, this function can close the file.
+    """
+    pass
 
-    def flush(self):
-        """
-        Flush the appender.
-        This function is called to ensure that all buffered data is written out.
-        It can be used to ensure that all log records are written to the destination.
-        """
-        pass
+  def flush(self):
+    """
+    Flush the appender.
+    This function is called to ensure that all buffered data is written out.
+    It can be used to ensure that all log records are written to the destination.
+    """
+    pass
 
-    @throws(NotImplementedError)
-    def append(self, record: LogRecord):
-        """
-        Append a log record to the appender.
-        This function is called to add a log record to the appender.
-        It can be used to write the log record to the destination.
-        """
-        raise NotImplementedError("Subclasses must implement this method.")
+  @throws(NotImplementedError)
+  def append(self, record: LogRecord):
+    """
+    Append a log record to the appender.
+    This function is called to add a log record to the appender.
+    It can be used to write the log record to the destination.
+    """
+    raise NotImplementedError("Subclasses must implement this method.")
 
-    @override
-    @classmethod
-    def from_dict(cls, data: dict) -> "BaseAppender":
-        """
-        Create an instance of BaseAppender from a dictionary representation.
+  @override
+  @classmethod
+  def from_dict(cls, data: dict) -> "BaseAppender":
+    """
+    Create an instance of BaseAppender from a dictionary representation.
 
-        Args:
-                data (dict): The dictionary representation of the formatter.
+    Args:
+        data (dict): The dictionary representation of the formatter.
 
-        Returns:
-                BaseAppender: An instance of BaseAppender.
-        """
-        raise NotImplementedError("Subclasses must implement this method")
+    Returns:
+        BaseAppender: An instance of BaseAppender.
+    """
+    raise NotImplementedError("Subclasses must implement this method")
 
-    @override
-    def to_dict(self) -> dict:
-        """
-        Convert the instance to a dictionary representation.
+  @override
+  def to_dict(self) -> dict:
+    """
+    Convert the instance to a dictionary representation.
 
-        Returns:
-                dict: The dictionary representation of the formatter.
-        """
-        raise NotImplementedError("Subclasses must implement this method")
+    Returns:
+        dict: The dictionary representation of the formatter.
+    """
+    raise NotImplementedError("Subclasses must implement this method")

@@ -11,13 +11,13 @@ if __name__ == "__main__":
 		.info("This is a test log message from the sample script.")
 	)
 	LoggerFactory.create_logger(
-    name="SampleLogger",
+  name="SampleLogger",
 	  level=LoggingLevel.INFO,
-    appenders=[
-        CompositeAppender(
-            appenders=[
-                ConsoleAppender()
-            ]
-        )
-    ]
+  appenders=[
+    CompositeAppender(
+      appenders=[
+        ConsoleAppender()
+      ]
+    )
+  ]
 		).error("This is an error message from the sample script.")

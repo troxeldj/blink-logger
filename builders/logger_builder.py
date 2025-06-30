@@ -6,8 +6,8 @@ from utils.dec import throws
 from managers.global_manager import GlobalManager
 
 if TYPE_CHECKING:
-    from formatters.base_formatter import BaseFormatter
-    from core.color import ConsoleColor
+  from formatters.base_formatter import BaseFormatter
+  from core.color import ConsoleColor
 
 class LoggerBuilder:
 		def __init__(self):
