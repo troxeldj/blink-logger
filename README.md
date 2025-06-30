@@ -33,7 +33,7 @@ slow_process()  # Automatically timed!
 
 ## Features
 
-- � **Zero Config** - Works out of the box with global logger
+- 🚀 **Zero Config** - Works out of the box with global logger
 - ⚡ **Smart Decorators** - `@logged`, `@timed`, `@performance_monitor` and more
 - 🎨 **Beautiful Output** - Colored terminal output for better readability
 - 📄 **Multiple Outputs** - Console, file, and composite appenders
