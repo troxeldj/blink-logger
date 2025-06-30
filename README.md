@@ -531,7 +531,7 @@ background_task("cleanup-001")
 
 ### Running Tests
 ```bash
-# Run all 256 tests
+# Run all 290 tests
 python -m pytest tests/ -v
 
 # Run specific test modules  
@@ -553,7 +553,7 @@ blink-logger/
 ├── builders/          # Fluent construction
 ├── managers/          # Logger management including global ✨ ENHANCED
 ├── config/            # Configuration support
-└── tests/             # Comprehensive test suite (256 tests!)
+└── tests/             # Comprehensive test suite (290 tests!)
 ```
 
 ## Why blink-logger?
@@ -598,7 +598,7 @@ logger = (LoggerBuilder()
 This is a personal learning project I built for fun and experimentation. While it has comprehensive features and tests, **don't use it in production** unless you enjoy living dangerously! 😄
 
 **Current State:**
-- 256 tests passing ✅
+- 290 tests passing ✅
 - Comprehensive feature coverage ✅
 - Clean architecture with zero circular imports ✅
 - Fun learning experiment with OOP design patterns ✅
