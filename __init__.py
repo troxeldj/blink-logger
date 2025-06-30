@@ -38,109 +38,109 @@ from managers.log_manager import LogManager
 from managers.global_manager import GlobalManager
 
 # Decorators
-from decorators import (
-  logged, timed, performance_monitor, debug_logged, error_handler
-)
+from decorators import logged, timed, performance_monitor, debug_logged, error_handler
+
 
 # Global logger access
 def get_global_logger() -> Logger:
-  """Get the global logger instance for easy access."""
-  return GlobalManager.get_global_logger()
+    """Get the global logger instance for easy access."""
+    return GlobalManager.get_global_logger()
+
 
 # Public API exports
 __all__ = [
-  # Core
-  "Logger",
-  "LoggingLevel", 
-  "LogRecord",
-  "ConsoleColor",
-  
-  # Builders
-  "LoggerBuilder",
-  
-  # Appenders
-  "BaseAppender",
-  "ConsoleAppender",
-  "ColoredConsoleAppender", 
-  "FileAppender",
-  "CompositeAppender",
-  
-  # Formatters
-  "BaseFormatter",
-  "SimpleFormatter",
-  "JSONFormatter",
-  
-  # Filters
-  "BaseFilter",
-  "KeywordFilter",
-  "LevelFilter",
-  
-  # Managers
-  "LogManager",
-  "GlobalManager",
-  
-  # Decorators
-  "logged",
-  "timed", 
-  "performance_monitor",
-  "debug_logged",
-  "error_handler",
-  
-  # Global access
-  "get_global_logger",
+    # Core
+    "Logger",
+    "LoggingLevel",
+    "LogRecord",
+    "ConsoleColor",
+    # Builders
+    "LoggerBuilder",
+    # Appenders
+    "BaseAppender",
+    "ConsoleAppender",
+    "ColoredConsoleAppender",
+    "FileAppender",
+    "CompositeAppender",
+    # Formatters
+    "BaseFormatter",
+    "SimpleFormatter",
+    "JSONFormatter",
+    # Filters
+    "BaseFilter",
+    "KeywordFilter",
+    "LevelFilter",
+    # Managers
+    "LogManager",
+    "GlobalManager",
+    # Decorators
+    "logged",
+    "timed",
+    "performance_monitor",
+    "debug_logged",
+    "error_handler",
+    # Global access
+    "get_global_logger",
 ]
+
 
 # Convenience functions for quick setup
 def get_logger(name: str) -> Logger:
-  """
-  Get a logger instance from the global manager.
-  
-  Args:
-    name: The name of the logger to retrieve
-    
-  Returns:
-    Logger instance
-    
-  Raises:
-    KeyError: If logger with given name doesn't exist
-  """
-  return GlobalManager.get_instance().get_logger(name)
+    """
+    Get a logger instance from the global manager.
+
+    Args:
+      name: The name of the logger to retrieve
+
+    Returns:
+      Logger instance
+
+    Raises:
+      KeyError: If logger with given name doesn't exist
+    """
+    return GlobalManager.get_instance().get_logger(name)
 
 
 def create_simple_logger(name: str, level: LoggingLevel = LoggingLevel.INFO) -> Logger:
-  """
-  Create a simple logger with console output.
-  
-  Args:
-    name: Name for the logger
-    level: Logging level (default: INFO)
-    
-  Returns:
-    Configured Logger instance
-  """
-  return (LoggerBuilder()
-      .set_name(name)
-      .set_level(level)
-      .add_appender(ConsoleAppender(formatter=SimpleFormatter()))
-      .build())
+    """
+    Create a simple logger with console output.
+
+    Args:
+      name: Name for the logger
+      level: Logging level (default: INFO)
+
+    Returns:
+      Configured Logger instance
+    """
+    return (
+        LoggerBuilder()
+        .set_name(name)
+        .set_level(level)
+        .add_appender(ConsoleAppender(formatter=SimpleFormatter()))
+        .build()
+    )
 
 
-def create_colored_logger(name: str, 
-             level: LoggingLevel = LoggingLevel.INFO,
-             color: ConsoleColor = ConsoleColor.DEFAULT) -> Logger:
-  """
-  Create a logger with colored console output.
-  
-  Args:
-    name: Name for the logger
-    level: Logging level (default: INFO)
-    color: Console color (default: DEFAULT)
-    
-  Returns:
-    Configured Logger instance with colored output
-  """
-  return (LoggerBuilder()
-      .set_name(name)
-      .set_level(level)
-      .add_appender(ColoredConsoleAppender(formatter=SimpleFormatter(), color=color))
-      .build())
+def create_colored_logger(
+    name: str,
+    level: LoggingLevel = LoggingLevel.INFO,
+    color: ConsoleColor = ConsoleColor.DEFAULT,
+) -> Logger:
+    """
+    Create a logger with colored console output.
+
+    Args:
+      name: Name for the logger
+      level: Logging level (default: INFO)
+      color: Console color (default: DEFAULT)
+
+    Returns:
+      Configured Logger instance with colored output
+    """
+    return (
+        LoggerBuilder()
+        .set_name(name)
+        .set_level(level)
+        .add_appender(ColoredConsoleAppender(formatter=SimpleFormatter(), color=color))
+        .build()
+    )

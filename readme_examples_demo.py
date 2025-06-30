@@ -18,23 +18,29 @@ print("2. Function Decorators:")
 from decorators import logged, timed, performance_monitor, debug_logged
 from core.level import LoggingLevel
 
+
 @logged()
 def process_data(data):
-  return [x * 2 for x in data]
+    return [x * 2 for x in data]
+
 
 @logged(level=LoggingLevel.DEBUG, message="Processing user data")
 def process_user(name, age):
-  return f"User {name} is {age} years old"
+    return f"User {name} is {age} years old"
+
 
 @timed()
 def expensive_operation():
-  import time
-  time.sleep(0.05)
-  return "completed"
+    import time
+
+    time.sleep(0.05)
+    return "completed"
+
 
 @performance_monitor()
 def complex_calculation(n):
-  return sum(range(n))
+    return sum(range(n))
+
 
 # Use them naturally
 result = process_data([1, 2, 3, 4])
@@ -51,11 +57,13 @@ print()
 print("3. Error Handling Decorator:")
 from decorators import error_handler
 
+
 @error_handler(reraise=False)
 def might_fail(value):
-  if value < 0:
-    raise ValueError("Negative values not allowed")
-  return value * 2
+    if value < 0:
+        raise ValueError("Negative values not allowed")
+    return value * 2
+
 
 result_fail = might_fail(-5)  # Logs error, returns None
 result_success = might_fail(10)  # Returns 20
@@ -65,16 +73,19 @@ print()
 # 4. Combining Decorators
 print("4. Combining Decorators:")
 
+
 @logged()
-@timed() 
+@timed()
 @error_handler(reraise=False)
 def full_featured_function(x, y):
-  """This function is logged, timed, and error-handled!"""
-  if x < 0 or y < 0:
-    raise ValueError("Negative inputs not allowed")
-  import time
-  time.sleep(0.02)  # Simulate work
-  return x * y + 42
+    """This function is logged, timed, and error-handled!"""
+    if x < 0 or y < 0:
+        raise ValueError("Negative inputs not allowed")
+    import time
+
+    time.sleep(0.02)  # Simulate work
+    return x * y + 42
+
 
 result = full_featured_function(10, 5)
 print(f"Full featured result: {result}")
@@ -99,10 +110,12 @@ global_logger.add_appender(file_appender)
 
 global_logger.info("This goes to both console and file!")
 
+
 # Decorators automatically use the updated global logger
 @logged()
 def my_function():
-  return "This will be logged to console AND file!"
+    return "This will be logged to console AND file!"
+
 
 result = my_function()
 print(f"My function result: {result}")
@@ -114,21 +127,25 @@ print()
 # 6. Real-world example: Web Application Setup
 print("6. Real-world example: Web Application Setup:")
 
+
 @logged()
 @timed()
 @error_handler(reraise=False)
 def process_user_request(user_id, action):
-  """Process user request with full logging."""
-  if action == "invalid":
-    raise ValueError("Invalid action requested")
-  return f"Processed {action} for user {user_id}"
+    """Process user request with full logging."""
+    if action == "invalid":
+        raise ValueError("Invalid action requested")
+    return f"Processed {action} for user {user_id}"
+
 
 @performance_monitor()
 def database_query(sql, params):
-  """Execute database query with monitoring."""
-  import time
-  time.sleep(0.01)  # Simulate DB query
-  return f"Query result for: {sql}"
+    """Execute database query with monitoring."""
+    import time
+
+    time.sleep(0.01)  # Simulate DB query
+    return f"Query result for: {sql}"
+
 
 # Use normally - everything is automatically logged
 result = process_user_request(123, "login")

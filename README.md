@@ -124,6 +124,9 @@ cd blink-logger
 # Install dependencies (if any)
 pip install -r requirements.txt
 
+# Install pre-commit hooks (after installing deps)
+pre-commit install
+
 # Run tests to verify installation
 python -m pytest tests/ -v
 ```
@@ -209,7 +212,7 @@ success = might_fail(10) # Returns 20
 from decorators import logged, timed, error_handler
 
 @logged()
-@timed() 
+@timed()
 @error_handler(reraise=False)
 def full_featured_function(x, y):
     """This function is logged, timed, and error-handled!"""
@@ -224,6 +227,45 @@ result = full_featured_function(10, 5)
 # Logs: function call, timing, and result
 # Handles: any errors gracefully
 # Returns: computed result or None if error
+```
+
+### 5. Using Custom Loggers with Decorators
+
+All decorators support an optional `logger` parameter to use a specific logger instead of the global one:
+
+```python
+from decorators import logged, timed, performance_monitor, debug_logged, error_handler
+from builders.logger_builder import LoggerBuilder
+from appenders.file_appender import FileAppender
+from formatters.simple_formatter import SimpleFormatter
+
+# Create a custom logger for specific components
+api_logger = (LoggerBuilder()
+    .set_name("API")
+    .add_appender(FileAppender("api.log", SimpleFormatter()))
+    .build())
+
+# Use decorators with custom logger
+@logged(logger=api_logger)
+@timed(logger=api_logger)
+def api_endpoint(request):
+    """This logs to api.log instead of global logger"""
+    return f"Processing {request}"
+
+@performance_monitor(logger=api_logger, message="Database operation")
+def database_call(query):
+    """Custom logger with custom message"""
+    return f"Executing: {query}"
+
+# Without logger parameter, uses global logger (default behavior)
+@logged()  # Uses global logger
+def regular_function():
+    return "This uses the global logger"
+
+# Call functions - they log to different destinations
+api_endpoint("user_data")      # Logs to api.log
+database_call("SELECT * FROM users")  # Logs to api.log
+regular_function()             # Logs to global logger (console by default)
 ```
 
 ## Advanced Usage - When You Need More Power
@@ -342,7 +384,7 @@ error_only = ConsoleAppender(
 )
 
 database_only = ConsoleAppender(
-    formatter=SimpleFormatter(), 
+    formatter=SimpleFormatter(),
     filters=[KeywordFilter(["database", "sql", "query"])]  # Only DB messages
 )
 
@@ -374,7 +416,7 @@ app_logger = (LoggerBuilder()
     .build())
 
 db_logger = (LoggerBuilder()
-    .set_name("database") 
+    .set_name("database")
     .add_appender(ConsoleAppender(SimpleFormatter()))
     .build())
 
@@ -408,7 +450,7 @@ config_data = {
             "formatter": {"type": "SimpleFormatter"}
         },
         {
-            "type": "FileAppender", 
+            "type": "FileAppender",
             "file_path": "production.log",
             "formatter": {"type": "JSONFormatter"}
         }
@@ -427,7 +469,7 @@ logger = LoggerBuilder().from_config(config).build()
 from core.level import LoggingLevel
 
 LoggingLevel.DEBUG     # Detailed diagnostic information
-LoggingLevel.INFO      # General information messages  
+LoggingLevel.INFO      # General information messages
 LoggingLevel.WARNING   # Warning messages
 LoggingLevel.ERROR     # Error messages
 LoggingLevel.CRITICAL  # Critical error messages
@@ -446,7 +488,7 @@ ConsoleColor.WHITE, ConsoleColor.DEFAULT
 ```python
 from decorators import (
     logged,              # Basic function call logging
-    timed,              # Execution time measurement  
+    timed,              # Execution time measurement
     performance_monitor, # Detailed entry/exit monitoring
     debug_logged,       # Debug-level detailed logging
     error_handler       # Automatic error handling and logging
@@ -531,10 +573,10 @@ background_task("cleanup-001")
 
 ### Running Tests
 ```bash
-# Run all 290 tests
+# Run all 307 tests
 python -m pytest tests/ -v
 
-# Run specific test modules  
+# Run specific test modules
 python -m pytest tests/test_decorators.py -v
 python -m pytest tests/test_global_manager.py -v
 
@@ -546,14 +588,14 @@ python -m pytest tests/ --cov=. --cov-report=html
 ```
 blink-logger/
 ├── core/              # Core logging components
-├── appenders/         # Output destinations  
+├── appenders/         # Output destinations
 ├── formatters/        # Message formatting
 ├── filters/           # Message filtering
 ├── decorators/        # Function decorators ✨ NEW
 ├── builders/          # Fluent construction
 ├── managers/          # Logger management including global ✨ ENHANCED
 ├── config/            # Configuration support
-└── tests/             # Comprehensive test suite (290 tests!)
+└── tests/             # Comprehensive test suite (307 tests!)
 ```
 
 ## Why blink-logger?
@@ -598,7 +640,7 @@ logger = (LoggerBuilder()
 This is a personal learning project I built for fun and experimentation. While it has comprehensive features and tests, **don't use it in production** unless you enjoy living dangerously! 😄
 
 **Current State:**
-- 290 tests passing ✅
+- 307 tests passing ✅
 - Comprehensive feature coverage ✅
 - Clean architecture with zero circular imports ✅
 - Fun learning experiment with OOP design patterns ✅
