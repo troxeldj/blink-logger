@@ -78,7 +78,8 @@ class TestMySQLAppenderInitialization:
         
         # Verify table creation was called
         mock_cursor.execute.assert_called()
-        mock_connection.commit.assert_called()
+        # With autocommit=True (default), commit should not be called
+        mock_connection.commit.assert_not_called()
     
     def test_init_custom_table_name(self, mock_mysql_connection):
         """Test initialization with custom table name."""
@@ -147,8 +148,8 @@ class TestMySQLAppenderAppend:
                        if 'INSERT INTO' in str(call)]
         assert len(insert_calls) >= 1
         
-        # Verify commit was called
-        assert mock_connection.commit.call_count >= 2  # Once for table creation, once for insert
+        # With autocommit=True (default), commit should not be called
+        assert mock_connection.commit.call_count == 0
     
     def test_append_with_filters_pass(self, mock_mysql_connection, sample_log_record):
         """Test appending with filters that allow the record."""
@@ -258,7 +259,11 @@ class TestMySQLAppenderSerialization:
             "host": "localhost",
             "user": "testuser", 
             "password": "testpass",
-            "database": "testdb"
+            "database": "testdb",
+            "table_name": "logs",
+            "autocommit": True,
+            "reconnect": True,
+            "connect_timeout": 10
         }
         
         assert result == expected

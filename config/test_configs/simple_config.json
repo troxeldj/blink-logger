@@ -3,11 +3,8 @@
     "level": "DEBUG",
     "appenders": [
         {
-          "type": "mysql",
-          "host": "localhost",
-          "user": "user",
-          "password": "password",
-          "database": "test",
+          "type": "sqlite",
+          "db_path": "./config/test_configs/test.db",
           "filters": [
             {
               "type": "keyword",
