@@ -5,29 +5,31 @@ A pure object-oriented Python logging library built from scratch with a focus on
 ## 🚀 Quick Setup
 
 ### Prerequisites
-- Python 3.7 or higher
-- No external dependencies required!
+- Python 3.8 or higher (as specified in setup.py)
 
 ### Installation
 
-**Option 1: Clone and Use (Recommended)**
+**Option 1: Development Installation (Recommended)**
 ```bash
 # Clone the repository
 git clone https://github.com/troxeldj/blink-logger.git
 cd blink-logger
 
+# Install in development mode with all dependencies
+pip install -e .[dev]
+
+# Or install requirements manually
+pip install -r requirements.txt
+
 # Verify installation by running tests
 python -m pytest tests/ -v
 ```
 
-**Option 2: Add to Your Project**
-```bash
-# Copy the blink-logger directory to your project
-cp -r blink-logger/ /path/to/your/project/
 
-# Or add as a git submodule
-git submodule add https://github.com/troxeldj/blink-logger.git
-```
+### Dependencies
+- **Core**: No external dependencies for basic logging functionality
+- **Development**: `pytest` for testing, `mysql-connector-python` for database appenders
+- **Testing**: `pytest>=6.0` for running the test suite
 
 ### Verify Installation
 ```python
