@@ -2,6 +2,43 @@
 
 A pure object-oriented Python logging library built from scratch with a focus on simplicity and power.
 
+## 🚀 Quick Setup
+
+### Prerequisites
+- Python 3.7 or higher
+- No external dependencies required!
+
+### Installation
+
+**Option 1: Clone and Use (Recommended)**
+```bash
+# Clone the repository
+git clone https://github.com/troxeldj/blink-logger.git
+cd blink-logger
+
+# Verify installation by running tests
+python -m pytest tests/ -v
+```
+
+**Option 2: Add to Your Project**
+```bash
+# Copy the blink-logger directory to your project
+cp -r blink-logger/ /path/to/your/project/
+
+# Or add as a git submodule
+git submodule add https://github.com/troxeldj/blink-logger.git
+```
+
+### Verify Installation
+```python
+# Test basic functionality
+from __init__ import get_global_logger
+
+logger = get_global_logger()
+logger.info("🎉 blink-logger is working!")
+# Should output: [2025-06-29T10:30:15.123456 INFO]: 🎉 blink-logger is working!
+```
+
 ## ✨ What's New - Global Logger & Decorators
 
 **Zero Configuration Logging** 🚀
