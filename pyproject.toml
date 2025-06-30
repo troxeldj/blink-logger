@@ -1,0 +1,20 @@
+[tool.black]
+include = '\.pyi?$'  # Example: Include only Python files
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \venv
+  | venv
+  | __pycache__
+  | _build
+  | buck-out
+  | build
+  | dist
+  | \.idea
+    # The following are specific to Black, you probably don't want those.
+)
+''' # Example: Exclude specific directories

@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 25.1.0  # Use the desired Black version (consider updating this)
+    hooks:
+      - id: black
+        language_version: python3.10  # Specify your project's Python version

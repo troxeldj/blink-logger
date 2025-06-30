@@ -5,14 +5,9 @@ from .json_formatter import JSONFormatter
 from typing import Dict
 
 
-all_formatter_strings: Dict[str, BaseFormatter]  = {
+all_formatter_strings: Dict[str, BaseFormatter] = {
     "SimpleFormatter": SimpleFormatter,
     "JSONFormatter": JSONFormatter,
 }
 
-__all__ = [
-    "BaseFormatter",
-    "SimpleFormatter",
-    "JSONFormatter",
-    "all_formatter_strings"
-]
+__all__ = ["BaseFormatter", "SimpleFormatter", "JSONFormatter", "all_formatter_strings"]

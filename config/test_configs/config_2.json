@@ -1,0 +1,16 @@
+{
+    "name": "SampleLogger2",
+    "level": "INFO",
+    "formatter": {
+        "type": "JSONFormatter"
+    },
+    "appenders": [
+        {
+            "type": "FileAppender",
+            "file_path": "sample_log_2.log"
+        },
+        {
+            "type": "ConsoleAppender"
+        }
+    ]
+}

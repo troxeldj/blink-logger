@@ -4,9 +4,4 @@ from .record import LogRecord
 from .color import ConsoleColor
 from .logger import Logger
 
-__all__ = [
-    "LoggingLevel",
-    "LogRecord", 
-    "ConsoleColor",
-    "Logger"
-]
+__all__ = ["LoggingLevel", "LogRecord", "ConsoleColor", "Logger"]

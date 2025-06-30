@@ -1,6 +1,7 @@
 # create an interface to create structure from json
-from abc import abstractmethod 
+from abc import abstractmethod
 from typing import Dict, Any
+
 
 class JsonSerializable:
     """
@@ -9,7 +10,7 @@ class JsonSerializable:
 
     @classmethod
     @abstractmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'JsonSerializable':
+    def from_dict(cls, data: Dict[str, Any]) -> "JsonSerializable":
         """
         Create an instance of the class from a dictionary representation.
 
