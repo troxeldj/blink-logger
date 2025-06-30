@@ -3,15 +3,11 @@ repos:
     rev: 25.1.0  # Use the desired Black version (consider updating this)
     hooks:
       - id: black
-        language_version: python3.12  # Use the available Python version
+        # Uses system default Python (works with Python 3.8+)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        language_version: python3.12
       - id: end-of-file-fixer
-        language_version: python3.12
       - id: check-yaml
-        language_version: python3.12
       - id: check-added-large-files
-        language_version: python3.12
