@@ -46,6 +46,34 @@ logger.info("🎉 blink-logger is working!")
 
 ## ✨ What's New - Global Logger & Decorators
 
+**Database Logging Support** 🗄️
+```python
+# MySQL and SQLite appenders for persistent logging
+from appenders.mysql_appender import MySQLAppender
+from appenders.sqlite_appender import SQLiteAppender
+from builders.logger_builder import LoggerBuilder
+
+# Log to MySQL database
+mysql_logger = (LoggerBuilder()
+    .set_name("mysql-logger")
+    .add_appender(MySQLAppender(
+        host="localhost",
+        user="logger",
+        password="password",
+        database="logs"
+    ))
+    .build())
+
+# Log to SQLite file
+sqlite_logger = (LoggerBuilder()
+    .set_name("sqlite-logger")
+    .add_appender(SQLiteAppender("app.db"))
+    .build())
+
+mysql_logger.info("Logged to MySQL!")
+sqlite_logger.info("Logged to SQLite!")
+```
+
 **Zero Configuration Logging** 🚀
 ```python
 # Just import and log - it's that simple!
@@ -78,7 +106,8 @@ slow_process()  # Automatically timed!
 - 🚀 **Zero Config** - Works out of the box with global logger
 - ⚡ **Smart Decorators** - `@logged`, `@timed`, `@performance_monitor` and more
 - 🎨 **Beautiful Output** - Colored terminal output for better readability
-- 📄 **Multiple Outputs** - Console, file, and composite appenders
+- �️ **Database Support** - MySQL and SQLite appenders for persistent logging
+- �📄 **Multiple Outputs** - Console, file, and composite appenders
 - 🔧 **Builder Pattern** - Fluent, chainable logger construction when you need it
 - 🌍 **Global Management** - Centralized logger registry and management
 - 🧩 **Modular Design** - Clean separation of concerns with dependency injection
@@ -421,6 +450,18 @@ from decorators import (
     performance_monitor, # Detailed entry/exit monitoring
     debug_logged,       # Debug-level detailed logging
     error_handler       # Automatic error handling and logging
+)
+```
+
+### Appenders
+```python
+from appenders import (
+    ConsoleAppender,        # Standard console output
+    ColoredConsoleAppender, # Colored console output
+    FileAppender,          # File output
+    MySQLAppender,         # MySQL database output
+    SQLiteAppender,        # SQLite database output
+    CompositeAppender      # Multiple appenders combined
 )
 ```
 

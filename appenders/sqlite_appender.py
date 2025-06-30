@@ -72,10 +72,13 @@ class SQLiteAppender(BaseAppender):
       raise ValueError("db_path must be in the config dictionary")
     if type(data['db_path']) != str:
       raise ValueError("db_path must be a string")
+    
+    filters = []  # Default to empty list
     if 'filters' in data:
       if type(data['filters']) != list:
         raise ValueError('filters must be a list')
       filters: List[BaseFilter] = cls._parse_filters(data['filters'])
+    
     return cls(
       db_path=data["db_path"],
       table_name=data.get("table_name", "logs"),

@@ -26,5 +26,6 @@ __all__ = [
     "ColoredConsoleAppender",
     "FileAppender",
     "CompositeAppender",
-    "SQLiteAppender"
+    "SQLiteAppender",
+    "MySQLAppender"
 ]
